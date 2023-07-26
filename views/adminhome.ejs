@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+</head>
+<body>
+    <h1>Hello from Admin Home</h1>
+        <a href="/update"><button>Profile</button></a>
+    
+      <a href="/logout">  <button>Logout</button></a>
+      <a href="/dashboard">  <button>DashBoard</button></a><br>
+ <a href="/add">  <button>Add User</button></a>
+      <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Role</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% users.forEach(function(user){ %>
+                <tr>
+                   <td><%= user.role%></td>
+                    <td><%= user.name%></td>
+                    <td><%= user.email%></td>
+                   <td><a href="/update/<%= user._id %>" ><button type="submit">Update</button></a></td>
+             <td><a href="/delete/<%= user._id %>" ><button type="submit">Delete</button></a></td>
+            
+                </tr>
+               <%})%>
+            </tbody>
+        </table>
+</body>
+</html>

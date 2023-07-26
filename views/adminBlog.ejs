@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin COntrol Blogs</title>
+</head>
+
+<body>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Body</th>
+
+                <th scope="col">Active</th>
+                <th scope="col">Category</th>
+                <th scope="col">Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% blogs.forEach(function(blog) {%>
+            <tr>
+                <td><%= blog.title %></td>
+                <td><%= blog.body %></td>
+
+                <td><%= blog.is_active %></td>
+
+                <% category_list.forEach(function(category){ %>
+                <% if(blog.category_id.includes(category._id)){%>
+                <td><%=category.name%></td>
+                <%}%>
+                  <%})%>
+
+                   <% tag_list.forEach(function(tag){ %>
+                <% if(blog.tag_id.includes(tag._id)){%>
+                <td><%=tag.name%></td>
+                <%}%>
+                  <%})%>
+                <td><a href="/updateBlog/<%= blog._id %>"><button type="submit">Update</button></a></td>
+                <td><a href="/deleteBlog/<%= blog._id %>"><button type="submit">Delete</button></a></td>
+
+            </tr>
+            <%})%>
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>

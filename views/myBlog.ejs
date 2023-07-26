@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+
+</head>
+
+<body>
+    <h1>My Blog</h1>
+    <h1>Filtering With Active and Inactive</h1>
+    <form method="POST" action="/filterMyBlog">
+        <% if(filter_category == "true") {%>
+        <input type="radio" name="filter" value="true" checked> Active
+        <input type="radio" name="filter" value="false">InActive
+        <%}else{%>
+        <input type="radio" name="filter" value="true"> Active
+        <input type="radio" name="filter" value="false" checked>InActive
+
+        <%}%>
+        <button type="submit">Submit</button><br><br><br>
+</form>
+
+<h1>----------------------------------</h1>
+<h1>Search Blog using title and body </h1>
+
+
+ <form class="form-inline my-2 my-lg-0" action="/searchMyBlog" method="POST">
+        <input class="form-control mr-sm-2" type="text" name="dsearch" placeholder="Search Title or Body ">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+<br>
+<h1>----------------------------</h1>
+    <h1>category Filter</h1>
+    <form class="form-inline my-2 my-lg-0" action="/filterByCategoryMyBlog" method="POST">
+          <select name="category" >
+               <option></option>
+    <% categorie.forEach(function(category){ %>
+
+        <option value="<%= category._id%>"><%= category.name %></option>
+
+        <%})%>
+        </select>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Apply</button>
+    </form>
+    <h1>----------------------------</h1>
+    <h1>Tag Filter</h1>
+    <form class="form-inline my-2 my-lg-0" action="/filterByTagMyBlog" method="POST">
+          <select name="tag" >
+               <option></option>
+    <% tags.forEach(function(tag){ %>
+
+        <option value="<%= tag._id%>"><%= tag.name %></option>
+
+        <%})%>
+        </select>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Apply</button>
+    </form>
+    <h1>--------------------</h1>
+    <%if(blogs.length){%>
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Body</th>
+                <th scope="col">Active</th>
+                <th scope="col">Category</th>
+                <th scope="col">Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% blogs.forEach(function(blog) {%>
+            <tr>
+                <td><%= blog.title %></td>
+                <td><%= blog.body %></td>
+
+                <td><%= blog.is_active %></td>
+
+                <% category_list.forEach(function(category){ %>
+                <% if(blog.category_id.includes(category._id)){%>
+                <td><%=category.name%></td>
+                <%}%>
+            <%})%>
+                <!--
+        Tags
+    -->
+     <% tag_list.forEach(function(tag){ %>
+                <% if(blog.tag_id.includes(tag._id)){%>
+                <td><%=tag.name%></td>
+                <%}%>
+            <%})%>
+
+
+
+
+                <td><a href="/updateBlog/<%= blog._id %>"><button type="submit">Update</button></a></td>
+                <td><a href="/deleteBlog/<%= blog._id %>"><button type="submit">Delete</button></a></td>
+
+            </tr>
+            <%})%>
+        </tbody>
+    </table>
+    <%}else{%>
+    <h1>No Blogs Found</h1>
+    <%}%>
+<h1>--------------------------------</h1>
+        <h1>Total Active Blogs : </h1>
+
+        <h1><%= active %></h1>
+
+    <h1>Total InActive Blogs </h1>
+
+    <h1><%= inactive %></h1>
+    <h1>--------------------------------</h1>
+
+    <h1>category wise Blog count With Active Status Only </h1>
+    <% categories.forEach(function(category){%>
+    <h1>----</h1>
+    <h1>category :<%= category.key%></h1>
+    <h1>Count:<%= category.value%></h1>
+
+    <%})%>
+    <h1>---------------------------</h1>
+
+</body>
+
+</html>

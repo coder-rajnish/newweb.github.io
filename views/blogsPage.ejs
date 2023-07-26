@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs of user</title>
+</head>
+
+<body>
+
+    <h1>Blogs Page</h1>
+    <form class="form-inline my-2 my-lg-0" action="/search" method="POST">
+        <input class="form-control mr-sm-2" type="text" name="dsearch" placeholder="Search Title or Body ">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <h1> Category Filter</h1>
+    <form class="form-inline my-2 my-lg-0" action="/filter" method="POST">
+          <select name="category" >
+               <option></option>
+    <% categories.forEach(function(category){ %>
+     
+    <option value="<%= category._id%>"><%= category.name %></option>
+
+    <%})%>
+    </select>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Apply</button>
+    </form>
+     <h1> Tag Filter</h1>
+    <form class="form-inline my-2 my-lg-0" action="/filterBlogByTag" method="POST">
+          <select name="tag">
+               <option></option>
+    <% tags.forEach(function(tag){ %>
+     
+    <option value="<%= tag._id%>"><%= tag.name %></option>
+
+    <%})%>
+    </select>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Apply</button>
+    </form>
+
+    <h1>Filter By Location</h1>
+<form action="filterBlogPagebyLocation" method="POST">
+    <input type="text" name="lat" placeholder="Latitude">
+     <input type="text" name="long" placeholder="Longitude">
+      <input type="text" name="dist" placeholder="Min Dist">
+      <button type="submit">SUBMIT</button>
+</form>
+<h1>----</h1>
+    <% if(blogs.length==0){%>
+        <h1>No blogs Found</h1>
+        <%}%>
+    <%blogs.forEach(function(blog){%>
+<h1>----------</h1>
+
+<img src="uploads/<%= blog.image%>" height="500" width="300">
+    <h1>Title: <%= blog.title%></h1>
+    <h3>Body :<%= blog.body%></h3>
+    
+    <%})%>
+</body>
+
+</html>

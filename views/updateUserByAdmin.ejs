@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update By Admin</title>
+</head>
+<body>
+    <h1>Update By Admin</h1>
+    <label for="role">Role </label>
+    <input type="text" readonly name="role" value="<%= User.role%>"><br><br>
+   <form action="/updateUserByAdmin" method="POST">
+       <label for="email">Email</label>
+ <input type="email" name="email" value="<%= User.email%>" readonly><br><br>
+
+     <label for="name">Name</label>
+
+     <input type="text" name="name" value="<%= User.name%>" required><br><br>
+     <label for="password">Password</label>
+    <input type="text" name="password"><br><br>
+    <label for="password2">Cornfirm Password</label>
+    <input type="text" name="password2"><br><br>
+    <button type="submit">UPDATE</button>
+</form>
+</body>
+</html>
